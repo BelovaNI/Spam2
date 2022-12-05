@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         // инициализация анализаторов для проверки в порядке данного набора анализаторов
         String[] spamKeywords = {"spam", "bad"};
         int commentMaxLength = 40;
@@ -62,76 +62,34 @@ public class Main {
             numberOfTest++;
         }
     }
-}
-
-
-
-interface TextAnalyzer {
-    Label processText(String text);
-
-    public static void checkLabels () {}
-}
-enum Label {
-    SPAM, NEGATIVE_TEXT, TOO_LONG, OK
-}
-
-abstract class KeywordAnalyzer {
-   public KeywordAnalyzer () {}
-
-    public abstract void getKeywords ();
-
-    public abstract void getLabel ();
-}
-class SpamAnalyzer extends KeywordAnalyzer implements TextAnalyzer {
-    private String [] spamKeywords;
-
-    public SpamAnalyzer (String[] keywords) {
-        this.spamKeywords = keywords;
-    }
-
-    @Override
-    public Label processText(String text) {
-        return null;
-    }
-
-    @Override
-    public void getKeywords() {
-
-    }
-
-    @Override
-    public void getLabel() {
-
-    }
-}
-class NegativeTextAnalyzer extends KeywordAnalyzer implements TextAnalyzer {
-    @Override
-    public Label processText(String text) {
-        return null;
-    }
-
-    @Override
-    public void getKeywords() {
-
-    }
-
-    @Override
-    public void getLabel() {
-
-    }
-}
-class TooLongTextAnalyzer implements TextAnalyzer {
-    private static int commentMaxLength;
-
-    public TooLongTextAnalyzer (int maxLength) {
-        this.commentMaxLength = maxLength;
-    }
-
-    @Override
-    public Label processText(String text) {
+    public Label checkLabels(TextAnalyzer[] analyzers, String text) {
         return null;
     }
 }
+
+    interface TextAnalyzer {
+        Label processText(String text);
+    }
+        enum Label {
+            SPAM, NEGATIVE_TEXT, TOO_LONG, OK
+        }
+
+        abstract class KeywordAnalyzer implements TextAnalyzer {
+            public KeywordAnalyzer() {
+            }
+
+            @Override
+            public Label processText(String text) {
+                return null;
+            }
+
+            public abstract void getKeywords();
+
+            public abstract void getLabel();
+        }
+
+
+
 
 
 
