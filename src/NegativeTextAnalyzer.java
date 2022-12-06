@@ -1,9 +1,6 @@
 class NegativeTextAnalyzer extends KeywordAnalyzer {
     String [] keywords;
 
-    public NegativeTextAnalyzer () {}
-
-
     @Override
     public void getKeywords() {
 

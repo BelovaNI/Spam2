@@ -7,12 +7,12 @@ class SpamAnalyzer extends KeywordAnalyzer {
 
 
     @Override
-    public void getKeywords() {
+    protected void getKeywords() {
 
     }
 
     @Override
-    public void getLabel() {
+    protected void getLabel() {
 
     }
 }

@@ -1,14 +1,17 @@
 class TooLongTextAnalyzer implements TextAnalyzer {
-    private static int commentMaxLength;
+    private int commentMaxLength;
 
-    public TooLongTextAnalyzer(int maxLength) {
-        this.commentMaxLength = maxLength;
+    public TooLongTextAnalyzer(int commentMaxLength) {
+        this.commentMaxLength = commentMaxLength;
     }
-
 
     @Override
     public Label processText(String text) {
-        return null;
+        int a = commentMaxLength;
+        if (text.length() < a) {
+            return Label.OK;
+        }
+        return Label.TOO_LONG;
     }
 }
 
