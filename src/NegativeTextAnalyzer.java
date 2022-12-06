@@ -1,13 +1,13 @@
 class NegativeTextAnalyzer extends KeywordAnalyzer {
-    String [] keywords;
 
     @Override
-    public void getKeywords() {
-
+    protected String[] getKeywords() {
+        String[] c = {":(", "=(", ":|"};
+        return c;
     }
 
     @Override
-    public void getLabel() {
-
+    protected Label getLabel() {
+        return Label.NEGATIVE_TEXT;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class SpamAnalyzer extends KeywordAnalyzer {
     private String[] keywords;
 
@@ -7,12 +9,13 @@ class SpamAnalyzer extends KeywordAnalyzer {
 
 
     @Override
-    protected void getKeywords() {
-
+    protected String[] getKeywords() {
+        String[] b = this.keywords;
+        return b;
     }
 
     @Override
-    protected void getLabel() {
-
+    protected Label getLabel() {
+        return Label.SPAM;
     }
 }

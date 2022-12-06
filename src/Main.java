@@ -4,35 +4,35 @@ public class Main {
     public static void main(String[] args) {
         // инициализация анализаторов для проверки в порядке данного набора анализаторов
         String[] keywords = {"spam", "bad"};
-        int commentMaxLength = 40;
+        int maxLength = 40;
         TextAnalyzer[] textAnalyzers1 = {
                 new SpamAnalyzer(keywords),
                 new NegativeTextAnalyzer(),
-                new TooLongTextAnalyzer(commentMaxLength)
+                new TooLongTextAnalyzer(maxLength)
         };
         TextAnalyzer[] textAnalyzers2 = {
                 new SpamAnalyzer(keywords),
-                new TooLongTextAnalyzer(commentMaxLength),
+                new TooLongTextAnalyzer(maxLength),
                 new NegativeTextAnalyzer()
         };
         TextAnalyzer[] textAnalyzers3 = {
-                new TooLongTextAnalyzer(commentMaxLength),
+                new TooLongTextAnalyzer(maxLength),
                 new SpamAnalyzer(keywords),
                 new NegativeTextAnalyzer()
         };
         TextAnalyzer[] textAnalyzers4 = {
-                new TooLongTextAnalyzer(commentMaxLength),
+                new TooLongTextAnalyzer(maxLength),
                 new NegativeTextAnalyzer(),
                 new SpamAnalyzer(keywords)
         };
         TextAnalyzer[] textAnalyzers5 = {
                 new NegativeTextAnalyzer(),
                 new SpamAnalyzer(keywords),
-                new TooLongTextAnalyzer(commentMaxLength)
+                new TooLongTextAnalyzer(maxLength)
         };
         TextAnalyzer[] textAnalyzers6 = {
                 new NegativeTextAnalyzer(),
-                new TooLongTextAnalyzer(commentMaxLength),
+                new TooLongTextAnalyzer(maxLength),
                 new SpamAnalyzer(keywords)
         };
         // тестовые комментарии
@@ -62,31 +62,45 @@ public class Main {
             numberOfTest++;
         }
     }
+
     public Label checkLabels(TextAnalyzer[] analyzers, String text) {
-        return null;
+        for (TextAnalyzer tx1 : analyzers) {
+           if  (tx1.processText(text) != Label.OK) {
+               return tx1.processText(text);
+           }
+        }
+    return Label.OK;
     }
 }
 
     interface TextAnalyzer {
         Label processText(String text);
     }
-        enum Label {
-            SPAM, NEGATIVE_TEXT, TOO_LONG, OK
+
+    enum Label {
+        SPAM, NEGATIVE_TEXT, TOO_LONG, OK
+    }
+
+    abstract class KeywordAnalyzer implements TextAnalyzer {
+        public KeywordAnalyzer() {
         }
 
-        abstract class KeywordAnalyzer implements TextAnalyzer {
-            public KeywordAnalyzer() {
+        @Override
+        public Label processText(String text) {
+            String [] array2 = getKeywords();
+            int i;
+            for (i = 0; i < array2.length; i++) {
+                if (text.contains(array2[i])) {
+                    return getLabel();
+                }
             }
-
-            @Override
-            public Label processText(String text) {
-                return null;
-            }
-
-            protected abstract void getKeywords();
-
-            protected abstract void getLabel();
+            return Label.OK;
         }
+
+        protected abstract String[] getKeywords();
+
+        protected abstract Label getLabel();
+    }
 
 
 
